@@ -25,13 +25,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fun chooseMenu(){
             val random = Random()
             var randomMenu : Int
+            if(menus.count() > 0) {
+                do {
+                    randomMenu = random.nextInt(menus.count())
+                } while (randomMenu == lastRandom)
+                lastRandom = randomMenu
 
-            do {
-                randomMenu = random.nextInt(menus.count())
-            } while (randomMenu == lastRandom)
-            lastRandom = randomMenu
-
-            selectedFood.text = menus[randomMenu]
+                selectedFood.text = menus[randomMenu]
+            }
         }
 
         fun addMenu(){
