@@ -1,5 +1,6 @@
 package fr.thatmuch.bonappetite
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -7,18 +8,15 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
-import android.widget.Toast
-import kotlinx.android.synthetic.main.my_menus.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val menus = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //setContentView(R.layout.my_menus)
         setSupportActionBar(toolbar)
+        var menus = ArrayList<String>()
         // Keep the last random menu index in memory
         var lastRandom = 0
 
@@ -35,18 +33,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        fun addMenu(){
-            val newMenu = addMenuTxt.text.toString()
-            menus.add(newMenu)
-            addMenuTxt.text.clear()
-        }
-
         chooseMenu.setOnClickListener{
             chooseMenu()
          }
-        /* addMenuBtn.setOnClickListener{
-            addMenu()
-        }*/
 
         val toggle = ActionBarDrawerToggle(
                 this, /* host activity */
@@ -74,8 +63,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         val id = item.itemId
+        val intent = Intent(this, MenuListActivity :: class.java)
         when (id) {
-            R.id.my_menus -> Toast.makeText(this, "Mes Menus", Toast.LENGTH_SHORT).show()
+            R.id.nav_listMenus -> startActivity(intent)
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
